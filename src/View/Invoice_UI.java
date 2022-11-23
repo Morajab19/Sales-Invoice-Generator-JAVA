@@ -40,10 +40,10 @@ public class Invoice_UI extends javax.swing.JFrame{
         btnNewInvoice.addActionListener(invController);
         btnDeleteInvoice = new javax.swing.JButton();
         btnDeleteInvoice.addActionListener(invController);
-        btnSaveChanges = new javax.swing.JButton();
-        btnSaveChanges.addActionListener(invController);
-        btnCanelChanges = new javax.swing.JButton();
-        btnCanelChanges.addActionListener(invController);
+        addItemBtn = new javax.swing.JButton();
+        addItemBtn.addActionListener(invController);
+        deleteItemBtn = new javax.swing.JButton();
+        deleteItemBtn.addActionListener(invController);
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         Datetxt = new javax.swing.JTextField();
@@ -96,14 +96,14 @@ public class Invoice_UI extends javax.swing.JFrame{
 
         btnDeleteInvoice.setText("Delete Invoice");
 
-        btnSaveChanges.setText("Save");
-        btnSaveChanges.addActionListener(new java.awt.event.ActionListener() {
+        addItemBtn.setText("Add Item");
+        addItemBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveChangesActionPerformed(evt);
+                addItemBtnActionPerformed(evt);
             }
         });
 
-        btnCanelChanges.setText("Cancel");
+        deleteItemBtn.setText("Delete Item");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Invoice Table");
@@ -147,9 +147,9 @@ public class Invoice_UI extends javax.swing.JFrame{
                         .addGap(18, 18, 18)
                         .addComponent(btnDeleteInvoice)
                         .addGap(269, 269, 269)
-                        .addComponent(btnSaveChanges)
+                        .addComponent(addItemBtn)
                         .addGap(44, 44, 44)
-                        .addComponent(btnCanelChanges))
+                        .addComponent(deleteItemBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addComponent(jLabel1))
@@ -214,8 +214,8 @@ public class Invoice_UI extends javax.swing.JFrame{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNewInvoice)
                     .addComponent(btnDeleteInvoice)
-                    .addComponent(btnSaveChanges)
-                    .addComponent(btnCanelChanges))
+                    .addComponent(addItemBtn)
+                    .addComponent(deleteItemBtn))
                 .addGap(40, 40, 40))
         );
 
@@ -232,9 +232,9 @@ public class Invoice_UI extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNewInvoiceActionPerformed
 
-    private void btnSaveChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveChangesActionPerformed
+    private void addItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSaveChangesActionPerformed
+    }//GEN-LAST:event_addItemBtnActionPerformed
 
     private void NametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NametxtActionPerformed
         // TODO add your handling code here:
@@ -288,11 +288,11 @@ public class Invoice_UI extends javax.swing.JFrame{
     private javax.swing.JMenuBar JMenuBar;
     private javax.swing.JMenu MenuBar;
     private javax.swing.JTextField Nametxt;
-    private javax.swing.JButton btnCanelChanges;
+    private javax.swing.JButton addItemBtn;
     private javax.swing.JButton btnDeleteInvoice;
     private javax.swing.JButton btnNewInvoice;
-    private javax.swing.JButton btnSaveChanges;
     private javax.swing.JLabel customerName;
+    private javax.swing.JButton deleteItemBtn;
     private javax.swing.JLabel invoiceDate;
     private javax.swing.JLabel invoiceNum;
     private javax.swing.JTable invoiceTable;

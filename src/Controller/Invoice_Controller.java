@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
 import View.CreateInvoiceView;
+import View.CreateItemView;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +25,7 @@ public class Invoice_Controller implements ActionListener, ListSelectionListener
     private Item item;
     private String customerName ;
     private CreateInvoiceView invView;
+    private CreateItemView itemView;
     
     public Invoice_Controller(Invoice_UI UI) {
         this.UI = UI;
@@ -85,24 +87,71 @@ public class Invoice_Controller implements ActionListener, ListSelectionListener
          FileOperations fo = new FileOperations(UI);           
           fo.saveFile(UI.getInvoices());
         }
-        //saving the editable text fields of a selected invoice row
-        else if(e.getActionCommand()=="Save"){
-            String date= UI.getDate().getText();
-            String name = UI.getCustomer().getText();
-            int rowSelected = UI.getInvoicesTable().getSelectedRow();
-            int total= UI.calcTotalInvs();
-            UI.getInvoices().get(rowSelected).setDate(date);
-            UI.getInvoices().get(rowSelected).setName(name);
+//        //saving the editable text fields of a selected invoice row
+//        else if(e.getActionCommand()=="Save"){
+//            String date= UI.getDate().getText();
+//            String name = UI.getCustomer().getText();
+//            int rowSelected = UI.getInvoicesTable().getSelectedRow();
+//            int total= UI.calcTotalInvs();
+//            UI.getInvoices().get(rowSelected).setDate(date);
+//            UI.getInvoices().get(rowSelected).setName(name);
+//            UI.getInvoiceTable().fireTableDataChanged();
+//            
+//        }
+//        //cancel the updates
+//        else if(e.getActionCommand() == "Cancel"){
+//            int rowSelected = UI.getInvoicesTable().getSelectedRow();
+//            UI.getCustomer().setText(UI.getInvoices().get(rowSelected).getName());
+//            UI.getDate().setText(UI.getInvoices().get(rowSelected).getDate());
+//        }
+         //adding new item to invoice
+        else if("Add Item".equals(e.getActionCommand())){
+             itemView = new CreateItemView(UI);
+             itemView.setVisible(true);
+         }
+        //deleting a selected item from invoice
+        else if("Delete Item".equals(e.getActionCommand())){
+            int pickedInv= UI.getInvoicesTable().getSelectedRow();
+          int rowPicked = UI.getItemsTable().getSelectedRow();
+        if((pickedInv!=-1) && (rowPicked!= -1)){
+            Invoice_Model invoice = UI.getInvoices().get(pickedInv);
+            invoice.getItems().remove(rowPicked);
             UI.getInvoiceTable().fireTableDataChanged();
+            Item_Table itemSelected = new Item_Table(invoice.getItems());
+            UI.getItemsTable().setModel(itemSelected);
+            itemSelected.fireTableDataChanged();
+        }
+        }
+        //finlizing the creation and adding of the item by clicking Add Item btn
+        else if ("Create Item".equals(e.getActionCommand())){
+            int invoiceSelected= UI.getInvoicesTable().getSelectedRow();
+        if(invoiceSelected!=-1){
+            Invoice_Model inv = UI.getInvoices().get(invoiceSelected);
+            String it= itemView.getiName().getText();
+            String price = itemView.getPrice().getText();
+            String count = itemView.getCount().getText();
+            double doublePrice = Double.parseDouble(price);
+            int intCount = Integer.parseInt(count);
+            Item newItem = new Item(it,intCount,doublePrice,inv);
+            inv.getItems().add(newItem);
+            Item_Table lineSelected = new Item_Table(inv.getItems());
+            UI.getInvoiceTable().fireTableDataChanged();
+            UI.getItemsTable().setModel(lineSelected);
+            lineSelected.fireTableDataChanged();
+
+        }
+        itemView.setVisible(false);
+        itemView.dispose();
+        itemView=null;
             
         }
-        //cancel the updates
-        else if(e.getActionCommand() == "Cancel"){
-            int rowSelected = UI.getInvoicesTable().getSelectedRow();
-            UI.getCustomer().setText(UI.getInvoices().get(rowSelected).getName());
-            UI.getDate().setText(UI.getInvoices().get(rowSelected).getDate());
+        //Cancel the process of the item creation
+        else if("Cancel Item".equals(e.getActionCommand())){
+            itemView.setVisible(false);
+            itemView.dispose();
+            itemView=null;
         }
-          
+         
     }
 
     @Override
