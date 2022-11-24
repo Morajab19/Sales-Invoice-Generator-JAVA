@@ -37,7 +37,7 @@ public class Invoice_Controller implements ActionListener, ListSelectionListener
     public void actionPerformed(ActionEvent e) {
         //based on the action command, a specefic action will be done
         //showing the new invoice dialog
-         if("Create new Invoice".equals(e.getActionCommand())){
+         if("Create New Invoice".equals(e.getActionCommand())){
             invView = new CreateInvoiceView(UI);
             invView.setVisible(true);
         }
@@ -56,7 +56,7 @@ public class Invoice_Controller implements ActionListener, ListSelectionListener
             //calculating the total of the invoices 
             int total= UI.calcTotalInvs();
             total+=1;
-            Invoice_Model inv = new Invoice_Model(total,date,name);
+            Invoice_Model inv = new Invoice_Model(total,name,date);
             UI.getInvoices().add(inv);
             UI.getInvoiceTable().fireTableDataChanged();
            //dialog shutdown
